@@ -6,9 +6,9 @@ const {
     createUser,
     updateUser,
     deleteUser,
-} = require('../../controllers/');
+} = require('../../controllers/user');
 
-//
+// api users
 router.route('/').get(getUsers).post(createUser);
 
 //get user by id, put, delete

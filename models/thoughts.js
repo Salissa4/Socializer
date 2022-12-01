@@ -6,7 +6,7 @@ const reactionSchema = new Schema(
     {
         reactionId: {
             type: Schema.Types.ObjectId ,
-            default: new Types.ObjectId ,
+            default: new Types.ObjectId , //
         },
         reactionBody: {
             type: String,
@@ -33,9 +33,9 @@ const reactionSchema = new Schema(
 );
 
 // Schema to create thoughts model
-const thoughtsSchema = new Schema(
+const thoughtSchema = new Schema(
     {
-    thoughtsText: {
+    thoughtText: {
         type: String,
         required: true,
         minLength: 1,
@@ -67,5 +67,5 @@ thoughtsSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
 });
 
-const thoughts = model('thoughts', thoughtsSchema);
+const thoughts = model('thoughts', thoughtSchema);
 module.exports = thoughts;
