@@ -1,4 +1,36 @@
 const { Schema, model } = require('mongoose');
+const moment = require('moment');
+
+// reaction schema
+const reactionSchema = new Schema(
+    {
+        reactionId: {
+            type: Schema.Types.ObjectId ,
+            default: new Types.ObjectId ,
+        },
+        reactionBody: {
+            type: String,
+            required: true,
+            maxLength: 280,
+        },
+        username: {
+            type: String,
+            required: true,
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            //use getter method to format the timestamp on query
+            get: createdAtVal => moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
+        },
+    },
+    {
+    toJSON: {
+        virtuals: true,
+    },
+    id: false,
+    }
+);
 
 // Schema to create thoughts model
 const thoughtsSchema = new Schema(
@@ -6,24 +38,29 @@ const thoughtsSchema = new Schema(
     thoughtsText: {
         type: String,
         required: true,
-        //insert min 1 and max 280 char
+        minLength: 1,
+        maxLength: 280,
     },
     createdAt: {
-        //date
+        type: Date,
         //default value to current timestamp
+        default: Date.now,
         //getter method to format timestamp on query
+        get: createdAtVal => moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
     },
     username: {
         type: String,
         required: true,
     },
-    reactions: //reactionSchema
-  },
-  {     
-    toJSON: {
-      virtuals: true,
+    reactions: [reactionSchema],
     },
-},
+    {     
+    toJSON: {
+        virtuals: true,
+    },
+    id: false,
+    },
+);
 
 //create a virtual property 'reaction' retrieve reaction length
 thoughtsSchema.virtual('reactionCount').get(function() {
