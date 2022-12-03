@@ -43,7 +43,7 @@ module.exports = {
 
     //update thought 
     updateThought(req, res) {
-        thoughts.fineOneAndUpdate(
+        thoughts.findOneAndUpdate(
             { _id: req.params.thoughtId }, 
             { $set: req.body }, 
             { runValidators: true, new: true })
@@ -59,21 +59,22 @@ module.exports = {
     },
 
     //delete thought 
+    //TODO: give 500 error, when i get all thoughts it deletes the thought
     deleteThought(req, res) {
-       thoughts.findOneAndRemove({ _id: req.params.thoughtId })
+       thoughts.findOneAndDelete({ _id: req.params.thoughtId })
        .then((thought) =>
             !thought
             ? res.status(404).json({message:'No thought with that id'})
             : User.findOneAndUpdate(
                 { thought: req.params.thoughtId },
-                { $pull: { thoughts: req.params.thoughtId } },
+                { $pull: { thought: req.params.thoughtId } },
                 { new: true }
               )
         )
         .then((user) =>
           !user
             ? res.status(404).json({
-                message: 'Thought created but no user with this id!',
+                message: 'Thought deleted but no user with this id!',
               })
             : res.json({ message: 'Thought successfully deleted!' })
         )
@@ -81,7 +82,7 @@ module.exports = {
     },
 
     //create reaction
-    addReaction(req, res) {
+    createReaction(req, res) {
         thoughts.findOneAndUpdate(
         { _id: req.params.thoughtId },
         { $addToSet: { reactions: req.body } },

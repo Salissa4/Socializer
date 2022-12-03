@@ -6,7 +6,7 @@ const reactionSchema = new Schema(
     {
         reactionId: {
             type: Schema.Types.ObjectId ,
-            default: new Types.ObjectId , //
+            default: () => new Types.ObjectId (), 
         },
         reactionBody: {
             type: String,
@@ -63,7 +63,7 @@ const thoughtSchema = new Schema(
 );
 
 //create a virtual property 'reaction' retrieve reaction length
-thoughtsSchema.virtual('reactionCount').get(function() {
+thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
 });
 
