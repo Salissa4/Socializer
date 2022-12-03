@@ -58,7 +58,6 @@ Routes to test:
 
 - Reactions
     - Create reaction `/api/thoughts/:thoughtId/reactions`
-        * Pass in json body: "reactionBody", "username", "thoughtId"
     - Delete reaction `/api/thoughts/thoughtID/reactions/reactionId`
 
 - Friends
