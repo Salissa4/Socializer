@@ -17,7 +17,7 @@ Socializer is an API for a social network web application where users can share 
 
 ## Usage
 
-View on [Screencastify]() 
+View on [Screencastify](https://drive.google.com/file/d/1hywBMTILHrNyFa_K2moq7xomBjJd1lbR/view) 
 
 ![Socializer](./assets/demo.png)
 ![MongoDB](./assets/mongo.png)
